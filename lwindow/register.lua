@@ -14,6 +14,12 @@ local tbl2file = function(file,tbl)
   file.close()
 end
 
+function printCentered( y,s )
+  local w,h = term.getSize()
+  term.setCursorPos(w/2 - #s/2, y)
+  term.write(s)
+end
+
 shell.run("clear")
 term.setTextColor(colors.white)
 printCentered(3, "LWindow - Register")

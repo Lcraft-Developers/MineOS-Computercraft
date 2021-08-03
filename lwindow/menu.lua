@@ -6,6 +6,19 @@ local getFile = function(file)
   return filedata
 end
 
+function file_check(file_name)
+  if fs.exists(tostring(file_name)) then
+    return true
+  else
+     return false
+  end
+end
+
+function printCentered( y,s )
+  local w,h = term.getSize()
+  term.setCursorPos(w/2 - #s/2, y)
+  term.write(s)
+end
 
 -- [[ Menu
 
@@ -39,7 +52,7 @@ function Logout()
   run()
 end
 
-local reload()
+function reload()
   mainMenu = {
     [1] = { text = "Login", handler = Choice1 },
     [2] = { text = "Register", handler = Choice2 },
@@ -47,8 +60,8 @@ local reload()
   }
 
   if file_check("disk/lwindow/currentaccount.lua") then
-    name = getFile(tostring("disk/lwindow/currentaccount.lua"))
-    isAdmin = getFile(tostring("disk/lwindow/users/".. name[1] .."/infos.lua"))[5]
+    name = getFile("disk/lwindow/currentaccount.lua")[1]
+    isAdmin = getFile(tostring("disk/lwindow/users/" + tostring(name) + "/infos.lua"))[5]
     if tostring(isAdmin) == "true" then
      mainMenu = {
      [1] = { text = "Logout", handler = Logout },
@@ -64,8 +77,9 @@ local reload()
   end
 end
 
+reload()
+
 function printMenu( menu)
-  reload()
   z = 7
   term.setTextColor(colors.yellow)
   printCentered(5, "LWindow")
