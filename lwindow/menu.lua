@@ -43,6 +43,7 @@ end
 
 function Console()
   shell.run("clear")
+  shell.run("shell")
   running = false
 end
 
@@ -68,7 +69,7 @@ function reload()
      [2] = { text = "Console", handler = Console },
      [3] = { text = "Exit", handler = Exit }
     }
-    else
+   else
      mainMenu = {
      [1] = { text = "Logout", handler = Logout },
      [2] = { text = "Exit", handler = Exit }
@@ -124,6 +125,8 @@ function main()
     event, key = os.pullEvent("key")
     onKeyPressed(key, mainMenu)
   end
+  print("Test")
+  sleep(10)
 end
 
 main()
