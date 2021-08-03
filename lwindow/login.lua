@@ -1,33 +1,3 @@
-function printCentered( y,s )
-  local w,h = term.getSize()
-  term.setCursorPos(w/2 - #s/2, y)
-  term.write(s)
-end
-
-local getFile = function(file)
-  local filedata = {}
-  for line in io.lines(file) do
-    filedata[#filedata+1] = line
-  end
-  return filedata
-end
-
-function file_check(file_name)
-  if fs.exists(tostring(file_name)) then
-    return true
-  else
-     return false
-  end
-end
-
-local tbl2file = function(file,tbl)
-  local file = fs.open(file,"w")
-  for k,v in pairs(tbl) do
-    file.writeLine(v)
-  end
-  file.close()
-end
-
 shell.run("clear")
 term.setTextColor(colors.white)
 printCentered(3, "LWindow - Login")

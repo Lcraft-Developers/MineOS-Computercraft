@@ -1,9 +1,3 @@
-function printCentered( y,s )
-  local w,h = term.getSize()
-  term.setCursorPos(w/2 - #s/2, y)
-  term.write(s)
-end
-
 function file_check(file_name)
   if fs.exists(tostring(file_name)) then
     return true
