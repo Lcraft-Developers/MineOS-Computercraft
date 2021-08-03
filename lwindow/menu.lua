@@ -39,30 +39,33 @@ function Logout()
   run()
 end
 
-mainMenu = {
-  [1] = { text = "Login", handler = Choice1 },
-  [2] = { text = "Register", handler = Choice2 },
-  [3] = { text = "Exit", handler = Exit }
-}
+local reload()
+  mainMenu = {
+    [1] = { text = "Login", handler = Choice1 },
+    [2] = { text = "Register", handler = Choice2 },
+    [3] = { text = "Exit", handler = Exit }
+  }
 
-if file_check("disk/lwindow/currentaccount.lua") then
-  name = getFile(tostring("disk/lwindow/currentaccount.lua"))
-  isAdmin = getFile(tostring("disk/lwindow/users/".. name[1] .."/infos.lua"))[5]
-  if tostring(isAdmin) == "true" then
-   mainMenu = {
-   [1] = { text = "Logout", handler = Logout },
-   [2] = { text = "Console", handler = Console },
-   [3] = { text = "Exit", handler = Exit }
-  }
-  else
-   mainMenu = {
-   [1] = { text = "Logout", handler = Logout },
-   [2] = { text = "Exit", handler = Exit }
-  }
+  if file_check("disk/lwindow/currentaccount.lua") then
+    name = getFile(tostring("disk/lwindow/currentaccount.lua"))
+    isAdmin = getFile(tostring("disk/lwindow/users/".. name[1] .."/infos.lua"))[5]
+    if tostring(isAdmin) == "true" then
+     mainMenu = {
+     [1] = { text = "Logout", handler = Logout },
+     [2] = { text = "Console", handler = Console },
+     [3] = { text = "Exit", handler = Exit }
+    }
+    else
+     mainMenu = {
+     [1] = { text = "Logout", handler = Logout },
+     [2] = { text = "Exit", handler = Exit }
+    }
+    end
   end
 end
 
 function printMenu( menu)
+  reload()
   z = 7
   term.setTextColor(colors.yellow)
   printCentered(5, "LWindow")
