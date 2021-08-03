@@ -1,4 +1,4 @@
-local getFile = function(file)
+local function getFile(file)
   local filedata = {}
   for line in io.lines(file) do
     filedata[#filedata+1] = line
@@ -6,7 +6,7 @@ local getFile = function(file)
   return filedata
 end
 
-function file_check(file_name)
+local function file_check(file_name)
   if fs.exists(tostring(file_name)) then
     return true
   else
@@ -14,7 +14,7 @@ function file_check(file_name)
   end
 end
 
-function printCentered( y,s )
+local function printCentered(y, s)
   local w,h = term.getSize()
   term.setCursorPos(w/2 - #s/2, y)
   term.write(s)
@@ -26,34 +26,38 @@ local termWidth, termHeight = term.getSize()
 local selectedItem = 1
 local running = true
 
-function Choice1()
+local function Choice1()
   shell.run("disk/lwindow/login")
 end
 
-function Choice2()
+local function Choice2()
   shell.run("disk/lwindow/register")
 end
 
-function Exit()
+local function Exit()
   running = false
   print("System will shutdown in 3 secounds")
   os.sleep(3)
   shell.run("disk/startup")
 end
 
-function Console()
+local function Console()
   shell.run("clear")
   shell.run("shell")
   running = false
 end
 
-function Logout()
+local function Logout()
   fs.delete("disk/lwindow/currentaccount.lua")
   running = false
   run()
 end
 
-function reload()
+local function Email()
+  shell.run("disk/lwindow/email")
+end
+
+local function reload()
   mainMenu = {
     [1] = { text = "Login", handler = Choice1 },
     [2] = { text = "Register", handler = Choice2 },
@@ -62,12 +66,13 @@ function reload()
 
   if file_check("disk/lwindow/currentaccount.lua") then
     name = getFile("disk/lwindow/currentaccount.lua")[1]
-    isAdmin = getFile(tostring("disk/lwindow/users/" + tostring(name) + "/infos.lua"))[5]
+    isAdmin = getFile(tostring("disk/lwindow/users/".. tostring(name).. "/infos.lua"))[4]
     if tostring(isAdmin) == "true" then
      mainMenu = {
-     [1] = { text = "Logout", handler = Logout },
-     [2] = { text = "Console", handler = Console },
-     [3] = { text = "Exit", handler = Exit }
+     [1] = { text = "Console", handler = Console },
+     [2] = { text = "Mail", handler = Email },
+     [3] = { text = "Logout", handler = Logout },
+     [4] = { text = "Exit", handler = Exit }
     }
    else
      mainMenu = {
@@ -80,7 +85,7 @@ end
 
 reload()
 
-function printMenu( menu)
+local function printMenu( menu)
   z = 7
   term.setTextColor(colors.yellow)
   printCentered(5, "LWindow")
@@ -96,7 +101,7 @@ function printMenu( menu)
   end
 end
 
-function onKeyPressed( key, menu)
+local function onKeyPressed( key, menu)
   shell.run("clear")
   printMenu(mainMenu)
   if key == keys.enter then
@@ -112,7 +117,7 @@ function onKeyPressed( key, menu)
   end
 end
 
-function onItemSelected( menu )
+local function onItemSelected( menu )
   menu[selectedItem].handler()
 end
 
