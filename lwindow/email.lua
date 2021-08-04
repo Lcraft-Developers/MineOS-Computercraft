@@ -4,7 +4,7 @@ local function printCentered( y,s )
     term.write(s)
 end
 
-isRunning = true;
+local isRunning = true
 
 local function printMenu()
     term.setTextColor(colors.white)
@@ -13,6 +13,7 @@ local function printMenu()
 end
 
 local function onKeyPressed(key)
+    key = key - 1
     if key == keys.y then
         shell.run("disk/lwindow/menu")
     end

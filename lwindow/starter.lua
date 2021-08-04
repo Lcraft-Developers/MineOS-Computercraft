@@ -23,7 +23,7 @@ term.setTextColor(colors.gray)
 printCentered(18, "by Lcraft Studios")
 term.setTextColor(colors.white)
 
-//fs.delete("disk/lwindow/currentaccount.lua")
+fs.delete("disk/lwindow/currentaccount.lua")
 
 os.sleep(2)
 shell.run("disk/lwindow/menu")

@@ -76,8 +76,9 @@ local function reload()
     }
    else
      mainMenu = {
-     [1] = { text = "Logout", handler = Logout },
-     [2] = { text = "Exit", handler = Exit }
+     [1] = { text = "Mail", handler = Email },
+     [2] = { text = "Logout", handler = Logout },
+     [3] = { text = "Exit", handler = Exit }
     }
     end
   end
@@ -101,6 +102,10 @@ local function printMenu( menu)
   end
 end
 
+local function onItemSelected( menu )
+  menu[selectedItem].handler()
+end
+
 local function onKeyPressed( key, menu)
   shell.run("clear")
   printMenu(mainMenu)
@@ -117,10 +122,6 @@ local function onKeyPressed( key, menu)
   end
 end
 
-local function onItemSelected( menu )
-  menu[selectedItem].handler()
-end
-
 function main()
   term.setTextColor(colors.white)
   while running do
@@ -130,8 +131,6 @@ function main()
     event, key = os.pullEvent("key")
     onKeyPressed(key, mainMenu)
   end
-  print("Test")
-  sleep(10)
 end
 
 main()

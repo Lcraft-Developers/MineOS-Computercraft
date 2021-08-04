@@ -1,4 +1,4 @@
-local function function getFile(file)
+local function getFile(file)
   local filedata = {}
   for line in io.lines(file) do
     filedata[#filedata+1] = line
